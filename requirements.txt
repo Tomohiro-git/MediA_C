@@ -1,1 +1,10 @@
+altair==4.2.0
+fugashi==1.1.0
+ipadic==1.0.0
 matplotlib
+mecab==0.996.3
+pandas==1.4.3
+streamlit==1.11.1
+torch==1.9.1
+tqdm==4.64.0
+transformers==4.10.2
