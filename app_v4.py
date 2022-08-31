@@ -164,7 +164,7 @@ if uploaded_file is not None:
     num_df = pd.concat(df_list, axis=1)
 
 
-    st.title(med_name)\
+#     st.title(med_name)\
         
     st.line_chart(num_df)
 
