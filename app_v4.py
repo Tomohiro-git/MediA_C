@@ -123,7 +123,7 @@ def predict(
 # サイドバー
 # ファイルアップロード
 uploaded_file = st.sidebar.file_uploader("ファイルアップロード", type='csv') 
-med_name = st.sidebar.text_input('薬物名')
+# med_name = st.sidebar.text_input('薬物名')
 
 #%%
 
@@ -156,7 +156,7 @@ if uploaded_file is not None:
     for i, label in enumerate(labels):
         print(i, label)
         df['created_at'] = pd.to_datetime(df['created_at'])
-        tweet_df = df[df['predicted']==i].groupby(pd.Grouper(key='created_at', freq='W', convention='start')).size()
+        tweet_df = df[df['predicted']==i].groupby(pd.Grouper(key='created_at', freq='D', convention='start')).size()
         tweet_df = pd.DataFrame(tweet_df, columns=[label])
         df_list.append(tweet_df)
 
