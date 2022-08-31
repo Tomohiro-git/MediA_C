@@ -5,27 +5,16 @@ Here's our first attempt at using data to create a table:
 """
 
 import streamlit as st
-import pandas as pd
-
-
-# %%
 import matplotlib.pyplot as plt
 import pandas as pd
-
 import unicodedata
-
-# %%
 import random
 import glob
 from tqdm import tqdm
-
 import torch
 from torch.utils.data import DataLoader
 from transformers import BertJapaneseTokenizer, BertForSequenceClassification
 import pytorch_lightning as pl
-
-
-import pandas as pd
 
 
 # %%
@@ -100,19 +89,11 @@ def predict(
     bert_sc = BertForSequenceClassification.from_pretrained(
         dir_model
     ).cpu()
-    print('test')
-    df = pd.read_table(dir_test_file, sep=',', index_col='Unnamed: 0')
-    print('test2')
-    df = df.dropna(subset=['text'])
-    print('test3')
     
-
-    # %%
+    df = pd.read_table(dir_test_file, sep=',', index_col='Unnamed: 0')
+    df = df.dropna(subset=['text'])
     d_test_text = df['text'].to_list()
-    print('test4')
     labels = encoding_plus_for_logits(d_test_text, 16, bert_sc)
-    print('test5')
-
     # %%
     df['predicted']=labels
     return df
@@ -131,12 +112,6 @@ med_name = st.sidebar.text_input('薬物名')
 # メイン画面
 st.header('読み込みデータ表示')
 if uploaded_file is not None:
-    # tweet = pd.read_csv(uploaded_file, sep=',', index_col='Unnamed: 0')
-    # tweet
-    # predict(dir_model='Tomohiro/MediA_C', dir_test_file=uploaded_file)
-    # exec(open('BERT_for_streamlit.py').read())
-    print('test')
-    #%%
     df = predict(dir_model='Tomohiro/MediA_C', dir_test_file=uploaded_file)
 
     #%%
@@ -146,11 +121,7 @@ if uploaded_file is not None:
     df = df[~df['text'].duplicated()]
     df['created_at'] = pd.to_datetime(df['created_at'])
     tweet_df = df.groupby(pd.Grouper(key='created_at', freq='W', convention='start')).size()
-
-
-    #%%
     labels = ["NC", "Sales NC", "Use", "Others"]
-    #%%
     df_list = []
 
     for i, label in enumerate(labels):
