@@ -140,7 +140,7 @@ if uploaded_file is not None:
     df = predict(dir_model='Tomohiro/MediA_C', dir_test_file=uploaded_file)
 
     #%%
-    st.table(df)
+    df
     # %%
 
     df = df[~df['text'].duplicated()]
